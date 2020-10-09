@@ -1,0 +1,29 @@
+steps:
+
+- id: "Rodando docker-compose"
+  name: 'docker/compose'
+  args: ['-f', 'docker-compose.cloudbuild.yaml', 'up', '-d']
+
+- id: "Chown in /var/www"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec','-u','root','-t','app','chown','-R','www-data:www-data','/var/www']
+
+- id: "Copiando .env"
+  name: 'docker'
+  args: ['exec', '-t', 'app', '.env.example', '.env']
+
+- id: "Copiando .env"
+  name: 'docker'
+  args: ['exec', '-t', 'app', '.env.testing.example', '.env.testing']
+
+- id: "Rodando key:generate"
+  name: 'docker'
+  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
+
+- id: "Rodando migration"
+  name: 'docker'
+  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
+
+- id: "Rodando Phpunit"
+  name: 'docker'
+  args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
