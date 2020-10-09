@@ -8,13 +8,17 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec','-u','root','-t','app','chown','-R','www-data:www-data','/var/www']
 
+- id: "Rodando composer"
+  name: 'docker'
+  args: ['exec', '-t', 'app', 'composer', 'install']
+
 - id: "Copiando .env"
   name: 'docker'
-  args: ['exec', '-t', 'app', '.env.example', '.env']
+  args: ['exec', '-t', 'app', 'cp', '.env.example', '.env']
 
 - id: "Copiando .env.testing"
   name: 'docker'
-  args: ['exec', '-t', 'app', '.env.testing.example', '.env.testing']
+  args: ['exec', '-t', 'app', 'cp', '.env.testing.example', '.env.testing']
 
 - id: "Rodando key:generate"
   name: 'docker'
