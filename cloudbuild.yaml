@@ -12,7 +12,7 @@ steps:
   name: 'docker'
   args: ['exec', '-t', 'app', '.env.example', '.env']
 
-- id: "Copiando .env"
+- id: "Copiando .env.testing"
   name: 'docker'
   args: ['exec', '-t', 'app', '.env.testing.example', '.env.testing']
 
