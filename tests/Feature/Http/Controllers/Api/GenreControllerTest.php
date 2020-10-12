@@ -6,8 +6,6 @@ namespace Tests\Feature\Http\Controllers\Api;
 use App\Models\Genre;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestResponse;
 
 class GenreControllerTest extends TestCase
